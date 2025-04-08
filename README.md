@@ -6,9 +6,9 @@ Este projeto é um sistema simples e funcional para **login administrativo** e *
 
 - Tela de login administrativo com validação de campos.
 - Formulário de cadastro de pacientes com múltiplos campos personalizados.
-- Interface responsiva com design limpo e moderno.
+- Interface responsiva com design moderno.
 - Navegação fluida entre as telas (login, cadastro e dashboard).
-- Integração com HTML, CSS e navegação entre páginas simuladas
+- Integração com HTML, CSS e navegação entre páginas.
 
 ---
 
