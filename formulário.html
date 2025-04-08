@@ -6,29 +6,37 @@
   <link rel="stylesheet" href="formulário.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Formulário de Paciente</h2>
-    <form action="#" method="post">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required>
+  <div class="wrapper">
+    <div class="background-box"></div> 
+    <div class="container">
+      <a href="teladelogin.html" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </a>
+      <h2>Formulário de Paciente</h2>
+      <form action="#" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
 
-      <label for="cpf">CPF:</label>
-      <input type="text" id="cpf" name="cpf" required pattern="\d{11}" placeholder="xxx.xxx.xxx-xx">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required pattern="\d{11}" placeholder="xxx.xxx.xxx-xx">
 
-      <label for="campo1">Variável 1:</label>
-      <input type="text" id="campo1" name="campo1">
+        <label for="campo1">Variável 1:</label>
+        <input type="text" id="campo1" name="campo1">
 
-      <label for="campo2">Variável 2:</label>
-      <input type="text" id="campo2" name="campo2">
+        <label for="campo2">Variável 2:</label>
+        <input type="text" id="campo2" name="campo2">
 
-      <label for="campo3">Variável 3:</label>
-      <input type="text" id="campo3" name="campo3">
+        <label for="campo3">Variável 3:</label>
+        <input type="text" id="campo3" name="campo3">
 
-      <label for="campo4">Variável 4:</label>
-      <input type="text" id="campo4" name="campo4">
+        <label for="campo4">Variável 4:</label>
+        <input type="text" id="campo4" name="campo4">
 
-      <button type="submit">Enviar</button>
-    </form>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
