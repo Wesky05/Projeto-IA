@@ -15,7 +15,8 @@
         </svg>
       </a>
       <h2>Formulário de Paciente</h2>
-      <form action="#" method="post">
+      <form action="http://localhost:8000/receber-dados" method="post">
+
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
@@ -40,3 +41,23 @@
   </div>
 </body>
 </html>
+<script>
+  document.getElementById("paciente-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+      params.append(key, value);
+    }
+
+    // Envia os dados para a API
+    await fetch("http://localhost:8000/receber-dados", {
+      method: "POST",
+      body: formData
+    });
+
+    // Redireciona para outra página com os dados na URL
+    window.location.href = `dados.html?${params.toString()}`;
+  });
+</script>
