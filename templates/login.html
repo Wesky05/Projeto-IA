@@ -1,9 +1,14 @@
+{% if erro %}
+  <p style="color: red;">{{ erro }}</p>
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Login Administrativo</title>
-  <link rel="stylesheet" href="static/login.css">
+  <link rel="stylesheet" href="{{ url_for('static', path='login.css') }}">
+
 </head>
 <body>
   <div class="wrapper">
@@ -15,7 +20,8 @@
         </svg>
       </a>
       <h2>Login Administrativo</h2>
-      <form action="templates/dashboard.html" method="get">
+      <form action="/login-admin" method="post">
+
         <label for="usuario">Usuário:</label>
         <input type="text" id="usuario" name="usuario" required placeholder="Digite seu usuário">
 
