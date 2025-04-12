@@ -53,8 +53,14 @@ async def receber_dados(
     campo4: str = Form(...)
 ):
     # Aqui você pode salvar no banco ou fazer o que quiser
-    return templates.TemplateResponse(
-        "formulário.html",{"request": request, "nome": nome})
+    conn = conectar_banco()
+    cursor = conn.cursor()
+    query = "INSERT INTO Requisicoes (Nome, CPF, Variavel1, Variavel2, Variavel3, Variavel4) VALUES (?,?,?,?,?,?)"
+    cursor.execute(query, (nome, cpf, campo1, campo2, campo3, campo4))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return templates.TemplateResponse("formulário.html", {"request": request, "mensagem": "Dados recebidos com sucesso!"})
 
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
@@ -78,7 +84,7 @@ async def login_admin(
 @app.get("/relatorio")
 async def relatorio(request: Request):
     conn = conectar_banco()
-    df = pd.read_sql("SELECT * FROM Alunos", conn)
+    df = pd.read_sql("SELECT * FROM Requisicoes", conn)
     conn.close()
 
     caminho = "relatorio.xlsx"
