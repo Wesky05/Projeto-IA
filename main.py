@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 import pyodbc
+import pandas as pd
+import pyodbc
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import PlainTextResponse
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.responses import RedirectResponse
 
@@ -16,7 +17,14 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-
+def conectar_banco():
+    conn_str = (
+        "Driver={SQL Server};"
+        "Server=localhost\\MSSQLSERVER2;"  # Barra invertida correta
+        "Database=EscolaDB;"
+        "Trusted_Connection=yes;"
+    )
+    return pyodbc.connect(conn_str)
 
 # Tela de login inicial
 @app.get("/", response_class=HTMLResponse)
@@ -67,4 +75,13 @@ async def login_admin(
     # Validação pode entrar aqui
     return RedirectResponse(url=f"/dashboard", status_code=302)
 
+@app.get("/relatorio")
+async def relatorio(request: Request):
+    conn = conectar_banco()
+    df = pd.read_sql("SELECT * FROM Alunos", conn)
+    conn.close()
+
+    caminho = "relatorio.xlsx"
+    df.to_excel(caminho, index=False)
+    return FileResponse(path=caminho, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename="relatorio.xlsx")
     
