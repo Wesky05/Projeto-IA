@@ -18,26 +18,75 @@
       <form action="http://localhost:8000/receber-dados" method="post">
 
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input type="text" id="nome" name="nome" required />
 
-        <label for="cpf">Dois últimos dígitos do CPF:</label>
-        <input type="text" id="cpf" name="cpf" required pattern="\d{2}" placeholder="xx">
+        <label for="cpf">Digite seu CPF:</label>
+        <input type="number" id="cpf" name="cpf" placeholder="xxxxxxxxxxx" />
 
-        <label for="campo1">Variável 1:</label>
-        <input type="text" id="campo1" name="campo1">
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero" required>
+          <option value="">Selecione</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+        </select>
 
-        <label for="campo2">Variável 2:</label>
-        <input type="text" id="campo2" name="campo2">
+        <label for="histfam">Histórico de esquizofrenia na família:</label>
+        <select id="histfam" name="histfam" required>
+          <option value="">Selecione</option>
+          <option value="sim">Sim</option>
+          <option value="não">Não</option>
+        </select>
 
-        <label for="campo3">Variável 3:</label>
-        <input type="text" id="campo3" name="campo3">
+        <label for="histsuic">Histórico de tentativa de suicídio:</label>
+        <select id="histsuic" name="histsuic" required>
+          <option value="">Selecione</option>
+          <option value="sim">Sim</option>
+          <option value="não">Não</option>
+        </select>
 
-        <label for="campo4">Variável 4:</label>
-        <input type="text" id="campo4" name="campo4">
+        <label for="scorepos">Score de Sintomas Positivo (de 0 - 1):</label>
+        <input
+          type="number"
+          id="scorepos"
+          name="scorepos"
+          step="any"
+          min="0"
+          max="1"
+          required
+        />
 
         <button type="submit">Enviar</button>
       </form>
+      <div id="resultado" class="resultado"></div>
     </div>
   </div>
+
+  <script>
+    const form = document.getElementById("formPaciente");
+    const resultado = document.getElementById("resultado");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // impede envio real para simular
+      const score = parseFloat(document.getElementById("scorepos").value);
+      const histFam = document.getElementById("histfam").value;
+      const histSuic = document.getElementById("histsuic").value;
+
+      let chance = 0;
+
+      if (!isNaN(score)) {
+        chance += score * 100;
+      }
+
+      if (histFam === "sim") chance += 15;
+      if (histSuic === "sim") chance += 10;
+
+      if (chance > 100) chance = 100;
+
+      resultado.textContent = `Percentual de chance de ter esquizofrenia: ${chance.toFixed(
+        1
+      )}%`;
+    });
+  </script>
+
 </body>
 </html>
