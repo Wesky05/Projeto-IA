@@ -49,19 +49,8 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 select {
-  width: 97%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #1f1f1f;
-  color: #ffffff;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-input[type="number"] {
   width: 97%;
   padding: 12px;
   margin-bottom: 20px;
@@ -125,3 +114,38 @@ button:hover {
   width: 120px;
   height: 120px;
 }
+
+.notificacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #2b2b2b;
+  color: white;
+  border-radius: 14px;
+  padding: 12px 20px;
+  margin: 20px auto 0;
+  width: fit-content;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.notificacao.mostrar {
+  opacity: 1;
+}
+
+.notificacao .icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificacao .icone svg {
+  width: 18px;
+  height: 18px;
+}
+
