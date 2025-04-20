@@ -4,6 +4,8 @@ from fastapi.templating import Jinja2Templates
 import psycopg2
 import numpy as np
 import joblib
+from fastapi.responses import RedirectResponse
+from fastapi import status
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -94,25 +96,21 @@ async def dashboard(request: Request):
 
 
 
-@app.post("/login-admin")
-async def login_admin(
-    request: Request,
-    usuario: str = Form(...),
-    senha: str = Form(...)
-):
+# Simulando usuários para o exemplo
+usuarios_validos = {
+    "admin": "senha123"
+}
 
-    # Salvar o nome na sessão
-    request.session["usuario"] = usuario
-    # Validação pode entrar aqui
-    return RedirectResponse(url=f"/dashboard", status_code=302)
+@app.get("/login-admin")
+def read_root(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
-@app.get("/relatorio")
-async def relatorio(request: Request):
-    conn = conectar_banco()
-    df = pd.read_sql("SELECT * FROM Requisicoes", conn)
-    conn.close()
-
-    caminho = "relatorio.xlsx"
-    df.to_excel(caminho, index=False)
-    return FileResponse(path=caminho, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename="relatorio.xlsx")
-    
+@app.post("/dashboard")
+def login_admin(request: Request, usuario: str = Form(...), senha: str = Form(...)):
+    # Verificar credenciais
+    if usuario in usuarios_validos and usuarios_validos[usuario] == senha:
+        # Redireciona para a rota do painel (Streamlit ou outra página)
+        return RedirectResponse(url="http://localhost:8501", status_code=status.HTTP_303_SEE_OTHER)
+    else:
+        # Se as credenciais estiverem erradas, retornar para a página de login com erro
+        return templates.TemplateResponse("login.html", {"request": request, "erro": "Usuário ou senha incorretos"})
