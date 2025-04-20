@@ -1,16 +1,11 @@
 from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import pyodbc
-import pandas as pd
+import psycopg2
 import numpy as np
 import joblib
-import pyodbc
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
-from fastapi.responses import RedirectResponse
-
-
 
 
 app = FastAPI()
@@ -20,15 +15,17 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 modelo = joblib.load("modelo_logistic_regression.joblib")
 
-
+# Função para conectar ao banco PostgreSQL
 def conectar_banco():
-    conn_str = (
-    "Driver={SQL Server};"
-    "Server=KEVIN\\MSSQLSERVER2;"
-    "Database=EscolaDB;"
-    "Trusted_Connection=yes;"
-)
-    return pyodbc.connect(conn_str)
+    conn = psycopg2.connect(
+        host="easypanel.kwautomation.shop",
+        port="30420",
+        database="projeto_ia",
+        user="KEVIN",
+        password="kevin123",
+        sslmode="disable"
+    )
+    return conn
 
 # Tela de login inicial
 @app.get("/", response_class=HTMLResponse)
@@ -54,7 +51,7 @@ async def receber_dados(
     genero: str = Form(...),
     histsuic: str = Form(...),
     histfam: str = Form(...),
-    subuse: str = Form(...)
+    subuse: str = Form(...),
 ):
     # Mapeamento dos valores
     genero_val = 1 if genero.lower() == "masculino" else 0
@@ -66,20 +63,20 @@ async def receber_dados(
     entrada = np.array([[genero_val, histsuic_val, histfam_val, subuse_val]])
     predicao = modelo.predict(entrada)[0]
 
-    # Conectar e salvar no banco
+    # Conectar ao banco PostgreSQL
     conn = conectar_banco()
     cursor = conn.cursor()
     query = """
-        INSERT INTO Requisicoes (Nome, CPF, Variavel1, Variavel2, Variavel3, Variavel4, Predicao)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO requisicoes (nome, cpf, genero, suicidio_historico, familia_historico, substancias_uso, predicao)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
-    cursor.execute(query, (nome, cpf, genero_val, histsuic_val, histfam_val, subuse_val, int(predicao)))
+    cursor.execute(query, (nome, cpf, genero, histsuic, histfam, subuse, str(predicao)))
     conn.commit()
     cursor.close()
     conn.close()
 
-        # Texto de retorno
-    diagnostico = "Esquizofrenia" if predicao == 1 else "nao-esquizofrenia"
+    # Texto de retorno
+    diagnostico = "Esquizofrenia" if predicao == 1 else "Não esquizofrenia"
     if diagnostico == "Esquizofrenia":
         mensagem = f"⚠️ Atenção! O paciente {nome} apresenta risco de esquizofrenia. ⚠️"
     else:
