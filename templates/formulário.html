@@ -1,3 +1,11 @@
+<div id="resultado" class="resultado {% if mensagem %}show {% if 'Esquizofrenia' in mensagem %}esquizofrenia{% else %}nao-esquizofrenia{% endif %}{% endif %}">
+  {% if mensagem %}
+    <p>{{ mensagem }}</p>
+  {% endif %}
+</div>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,13 +38,6 @@
           <option value="Feminino">Feminino</option>
         </select>
 
-        <label for="histfam">Histórico de esquizofrenia na família:</label>
-        <select id="histfam" name="histfam" required>
-          <option value="">Selecione</option>
-          <option value="sim">Sim</option>
-          <option value="não">Não</option>
-        </select>
-
         <label for="histsuic">Histórico de tentativa de suicídio:</label>
         <select id="histsuic" name="histsuic" required>
           <option value="">Selecione</option>
@@ -44,16 +45,19 @@
           <option value="não">Não</option>
         </select>
 
-        <label for="scorepos">Score de Sintomas Positivo (de 0 - 1):</label>
-        <input
-          type="number"
-          id="scorepos"
-          name="scorepos"
-          step="any"
-          min="0"
-          max="1"
-          required
-        />
+        <label for="histfam">Histórico de esquizofrenia na família:</label>
+        <select id="histfam" name="histfam" required>
+          <option value="">Selecione</option>
+          <option value="sim">Sim</option>
+          <option value="não">Não</option>
+        </select>
+
+        <label for="subuse">Uso de substâncias:</label>
+        <select id="subuse" name="subuse" required>
+          <option value="">Selecione</option>
+          <option value="sim">Sim</option>
+          <option value="não">Não</option>
+        </select>
 
         <button type="submit">Enviar</button>
       </form>
@@ -73,37 +77,7 @@
   </div>
 
   <script>
-    const form = document.getElementById("formPaciente");
-    const resultado = document.getElementById("resultado");
-    const notificacao = document.getElementById("notificacao");
     const cpfInput = document.getElementById("cpf");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const score = parseFloat(document.getElementById("scorepos").value);
-      const histFam = document.getElementById("histfam").value;
-      const histSuic = document.getElementById("histsuic").value;
-
-      let chance = 0;
-
-      if (!isNaN(score)) {
-        chance += score * 100;
-      }
-
-      if (histFam === "sim") chance += 15;
-      if (histSuic === "sim") chance += 10;
-
-      if (chance > 100) chance = 100;
-
-      resultado.textContent = `Percentual de chance de ter esquizofrenia: ${chance.toFixed(1)}%`;
-
-      notificacao.classList.add("mostrar");
-
-      setTimeout(() => {
-        notificacao.classList.remove("mostrar");
-      }, 4000);
-    });
 
     cpfInput.addEventListener("input", function (e) {
       let value = e.target.value.replace(/\D/g, ""); 

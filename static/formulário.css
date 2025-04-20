@@ -149,3 +149,39 @@ button:hover {
   height: 18px;
 }
 
+/* Estilização do resultado */
+#resultado {
+  background-color: #333;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  display: none; /* Inicialmente escondido */
+  margin-top: 30px; /* Garante que fique um pouco abaixo do formulário */
+  position: relative; /* Garante que ele se posicione corretamente */
+  z-index: 2; /* Garante que ele fique à frente do fundo */
+}
+
+/* Se a mensagem estiver disponível, mostrar o resultado */
+#resultado.show {
+  display: block;
+}
+
+/* Estilização do texto dentro do resultado */
+#resultado p {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Para destacar as mensagens de acordo com a predição */
+#resultado.esquizofrenia {
+  background-color: #e74c3c; /* Vermelho */
+}
+
+#resultado.nao-esquizofrenia {
+  background-color: #27ae60; /* Verde */
+}
