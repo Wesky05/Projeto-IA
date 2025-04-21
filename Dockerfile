@@ -1,24 +1,16 @@
-# Imagem base
-FROM python:3.11-slim
+FROM python:3.11
 
-# Instalar dependências do sistema
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Criar diretório de trabalho
+# Define diretório de trabalho
 WORKDIR /app
 
-# Copiar arquivos do projeto
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Copia os arquivos
 COPY . .
 
-# Expor porta padrão do Streamlit
-EXPOSE 8501
+# Instala dependências
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Comando de inicialização
-CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Expõe a porta
+EXPOSE 8000
+
+# Comando para rodar o app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
