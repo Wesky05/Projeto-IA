@@ -110,7 +110,7 @@ def login_admin(request: Request, usuario: str = Form(...), senha: str = Form(..
     # Verificar credenciais
     if usuario in usuarios_validos and usuarios_validos[usuario] == senha:
         # Redireciona para a rota do painel (Streamlit ou outra página)
-        return RedirectResponse(url="http://localhost:8501", status_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(url="https://dashboard.kwautomation.shop/", status_code=status.HTTP_303_SEE_OTHER)
     else:
         # Se as credenciais estiverem erradas, retornar para a página de login com erro
         return templates.TemplateResponse("login.html", {"request": request, "erro": "Usuário ou senha incorretos"})

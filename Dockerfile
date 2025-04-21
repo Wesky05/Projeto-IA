@@ -1,17 +1,24 @@
-# Imagem base do Python
-FROM python:3.10
+# Imagem base
+FROM python:3.11-slim
 
-# Diretório de trabalho dentro do container
+# Instalar dependências do sistema
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Criar diretório de trabalho
 WORKDIR /app
 
-# Copia tudo do projeto para dentro do container
-COPY . /app
-
-# Instala as dependências
+# Copiar arquivos do projeto
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expõe a porta da aplicação
-EXPOSE 8000
+COPY . .
 
-# Comando para rodar o FastAPI com uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Expor porta padrão do Streamlit
+EXPOSE 8501
+
+# Comando de inicialização
+CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
