@@ -34,7 +34,7 @@ def conectar_banco():
 async def tela_login(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-# Login do admin (se quiser implementar depois)
+# Login do admin
 @app.get("/login-admin", response_class=HTMLResponse)
 async def login_admin(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
