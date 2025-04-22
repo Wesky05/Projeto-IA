@@ -1,30 +1,65 @@
-# Sistema de monitoramento para pacientes com diagnóstico de esquizofrenia 
+# Projeto IA – Sistema de Apoio ao Monitoramento de Pacientes com Esquizofrenia
 
-Este projeto é um sistema simples e funcional para **login administrativo** e **cadastro de pacientes**, desenvolvido com foco em praticidade, interface moderna e organização de informações.
 
-##  Funcionalidades (até o momento)
+## 📌 Funcionalidades Principais
 
-- Tela de login administrativo com validação de campos.
-- Formulário de cadastro de pacientes com múltiplos campos personalizados.
-- Interface responsiva com design moderno.
-- Navegação fluida entre as telas (login, cadastro e dashboard).
-- Integração com HTML, CSS e navegação entre páginas.
+- **Tela de login para administração**  
+  Uma interface de login segura para acesso administrativo ao sistema.
 
----
+- **Cadastro estruturado de pacientes**  
+  Formulário bem estruturado para inserção e organização dos dados clínicos dos pacientes.
 
-## Estrutura do Projeto
+- **Dashboard interativo com dados clínicos**  
+  Visualização clara e interativa dos dados clínicos dos pacientes em tempo real.
 
-- `teladelogin.html` – Tela inicial do sistema.
-- `login.html` – Tela de login administrativo.
-- `formulario.html` – Formulário de cadastro de pacientes.
-- `dashboard.html` – Tela de destino após login administrativo.
-- `css` – Estilos personalizados para cada tela.
-- SVGs e botões customizados incluídos diretamente nos arquivos HTML.
+- **Modelo preditivo com regressão logística**  
+  Utiliza um modelo de IA para previsões baseadas nos dados dos pacientes.
 
----
+- **Interface moderna e responsiva (HTML + CSS)**  
+  Design intuitivo e adaptável.
 
-##  Tecnologias Utilizadas
 
-- HTML
-- CSS
-- SVG (ícones vetoriais)  
+
+## 🗂️ Estrutura Completa do Projeto
+
+| Diretório/Arquivo                              | Descrição                                          |
+|------------------------------------------------|----------------------------------------------------|
+| `__pycache/`                                   | Cache do Python                                    |
+| `static/`                                      | Arquivos estáticos e visuais                       |
+| `static/Ilustracao.mp4`                        | Vídeo ilustrativo                                  |
+| `static/dashboard.css`                         | Estilos específicos para o dashboard               |
+| `static/formulário.css`                        | Estilos para o formulário de cadastro              |
+| `static/index.css`                             | Estilos para a página inicial                      |
+| `static/login.css`                             | Estilos para a tela de login                       |
+| `templates/`                                   | Arquivos HTML para as páginas do sistema           |
+| `templates/dashboard.html`                     | Tela do dashboard                                  |
+| `templates/formulario.html`                    | Formulário de cadastro de pacientes                |
+| `templates/login.html`                         | Tela de login                                      |
+| `templates/teladelogin.html`                   | Tela inicial de login                              |
+| `Dockerfile`                                   | Arquivo de configuração para o Docker              |
+| `dashboardSL.py`                               | Script alternativo para o dashboard                |
+| `main.py`                                      | Arquivo principal do projeto                       |
+| `modelo_logistic_regression.joblib`            | Modelo treinado de regressão logística (ML)       |
+| `requirements.txt`                             | Dependências do projeto                            |
+
+## ⚙️ Tecnologias Utilizadas
+
+- Python 3.10+
+
+- FastAPI
+
+- JavaScript
+
+- HTML & CSS
+
+- Dockerfile
+
+## 👨‍💻 Desenvolvedores
+
+| Nome                 | Função      |
+|----------------------|-------------|
+| **Alyson Seixas**     | Front-End   |
+| **Emesson Silva**     | Front-End   |
+| **Felipe Emanoel**    | Back-End   |
+| **Guilherme Willam**   | Tester    |
+| **Kevinny Weslley**  | Back-End |
