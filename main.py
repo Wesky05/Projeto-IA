@@ -80,9 +80,9 @@ async def receber_dados(
     # Texto de retorno
     diagnostico = "Esquizofrenia" if predicao == 1 else "Não esquizofrenia"
     if diagnostico == "Esquizofrenia":
-        mensagem = f"⚠️ Atenção! O paciente {nome} apresenta risco de esquizofrenia. ⚠️"
+        mensagem = f"🛑 Atenção! O/A paciente {nome} apresenta risco de esquizofrenia. 🛑"
     else:
-        mensagem = f"✅ O paciente {nome} não apresenta risco de esquizofrenia. ✅"
+        mensagem = f"✅ O/A paciente {nome} não apresenta risco de esquizofrenia. ✅"
 
     # Passando a mensagem para o template
     return templates.TemplateResponse("formulário.html", {"request": request, "mensagem": mensagem})
