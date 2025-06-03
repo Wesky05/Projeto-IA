@@ -1,6 +1,8 @@
+# pylint: disable=no-name-in-module, missing-function-docstring, function-redefined
 import pandas as pd
 from behave import given, when, then
 
+BASE_URL = "http://localhost:8000"
 
 @given('os dados de pacientes estão carregados no sistema')
 def step_impl(context):

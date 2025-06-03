@@ -1,3 +1,4 @@
+# pylint: disable=missing-function-docstring,function-redefined
 from behave import given, when, then  # pylint: disable=no-name-in-module
 import requests
 

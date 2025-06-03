@@ -1,4 +1,8 @@
-from behave import given, when, then  # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module, missing-function-docstring, function-redefined
+from behave import given, when, then
+
+
+BASE_URL = "http://localhost:8000"
 
 @given('estou na página do formulário')
 def step_impl(context):

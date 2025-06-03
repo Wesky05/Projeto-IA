@@ -1,6 +1,10 @@
-from behave import given, when, then
-import pandas as pd
+# pylint: disable=no-name-in-module, missing-function-docstring, function-redefined
 import io
+
+import pandas as pd
+from behave import given, when, then
+
+BASE_URL = "http://localhost:8000"
 
 @given("os dados de pacientes carregados no sistema")
 def step_impl_carregar_dados(context):
@@ -21,9 +25,10 @@ def step_when_gerar_excel(context):
     buffer = io.BytesIO()
     with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         context.filtrados.to_excel(writer, sheet_name='Pacientes', index=False)
-        writer.save()
+        
     buffer.seek(0)
     context.excel_buffer = buffer
+
 
 @then('o arquivo Excel deve conter as colunas {colunas}')
 def step_then_validar_colunas_excel(context, colunas):
